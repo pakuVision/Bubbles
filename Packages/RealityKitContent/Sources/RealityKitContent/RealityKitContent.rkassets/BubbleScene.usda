@@ -22,7 +22,7 @@ def Xform "Root"
         double radius = 0.1
         quatf xformOp:orient = (1, 0, 0, 0)
         float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (-0.11133349, 0.5, -0.21971187)
+        float3 xformOp:translate = (0, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def RealityKitComponent "Collider"
@@ -48,15 +48,46 @@ def Xform "Root"
         {
             uniform token info:id = "RealityKit.InputTarget"
         }
+
+        def RealityKitCustomComponent "RealityKitContent_BubbleComponent"
+        {
+            float3 direction = (0.1, 0.1, 0)
+            uniform token info:id = "RealityKitContent.BubbleComponent"
+        }
+
+        def RealityKitComponent "RigidBody"
+        {
+            bool gravityEnabled = 0
+            uniform token info:id = "RealityKit.RigidBody"
+            float linearDamping = 0
+
+            def RealityKitStruct "massFrame"
+            {
+                def RealityKitStruct "m_pose"
+                {
+                }
+            }
+
+            def RealityKitStruct "material"
+            {
+            }
+        }
+
+        def RealityKitComponent "MotionState"
+        {
+            uniform token info:id = "RealityKit.MotionState"
+            float3 m_userSetLinearVelocity = (0.04, 0.04, 0)
+            uint m_userSetLinearVelocityVersion = 1
+        }
     }
 
     def Material "BubbleMaterial"
     {
-        float inputs:AnimationSpeed = 0.02 (
+        float inputs:AnimationSpeed = 0.01 (
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (-1349.9727, -8.855469)
-                    int stackingOrderInSubgraph = 1847
+                    int stackingOrderInSubgraph = 2598
                 }
             }
         )
@@ -136,7 +167,14 @@ def Xform "Root"
                     }
                 }
             )
-            float3 inputs:NoiseOffset = (0, 0, 0)
+            float3 inputs:NoiseOffset = (0, 0, 0) (
+                customData = {
+                    dictionary realitykit = {
+                        float2 positionInSubgraph = (141.34766, -68.859375)
+                        int stackingOrderInSubgraph = 1943
+                    }
+                }
+            )
             float inputs:NoiseScale (
                 customData = {
                     dictionary realitykit = {
@@ -568,293 +606,6 @@ def Xform "Root"
             float outputs:out
             float2 ui:nodegraph:node:pos = (129.47237, 192.94897)
             int ui:nodegraph:node:stackingOrder = 2595
-        }
-    }
-
-    def Sphere "Bubble_1" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/BubbleMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        float2 ui:nodegraph:node:pos = (2.0326977, 673.27795)
-        int ui:nodegraph:node:stackingOrder = 1
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.12128669, 0.5, -0.21971187)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def RealityKitComponent "Collider"
-        {
-            uint group = 1
-            uniform token info:id = "RealityKit.Collider"
-            uint mask = 4294967295
-            token type = "Default"
-
-            def RealityKitStruct "Shape"
-            {
-                float3 extent = (0.2, 0.2, 0.2)
-                float radius = 0.1
-                token shapeType = "Sphere"
-
-                def RealityKitStruct "pose"
-                {
-                }
-            }
-        }
-
-        def RealityKitComponent "InputTarget"
-        {
-            uniform token info:id = "RealityKit.InputTarget"
-        }
-    }
-
-    def Sphere "Bubble_2" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/BubbleMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        float2 ui:nodegraph:node:pos = (22.032698, 693.27795)
-        int ui:nodegraph:node:stackingOrder = 2
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (-0.35053134, 0.5, -0.21971187)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def RealityKitComponent "Collider"
-        {
-            uint group = 1
-            uniform token info:id = "RealityKit.Collider"
-            uint mask = 4294967295
-            token type = "Default"
-
-            def RealityKitStruct "Shape"
-            {
-                float3 extent = (0.2, 0.2, 0.2)
-                float radius = 0.1
-                token shapeType = "Sphere"
-
-                def RealityKitStruct "pose"
-                {
-                }
-            }
-        }
-
-        def RealityKitComponent "InputTarget"
-        {
-            uniform token info:id = "RealityKit.InputTarget"
-        }
-    }
-
-    def Sphere "Bubble_3" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/BubbleMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        float2 ui:nodegraph:node:pos = (22.032698, 693.27795)
-        int ui:nodegraph:node:stackingOrder = 2
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.36210516, 0.5, -0.21971187)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def RealityKitComponent "Collider"
-        {
-            uint group = 1
-            uniform token info:id = "RealityKit.Collider"
-            uint mask = 4294967295
-            token type = "Default"
-
-            def RealityKitStruct "Shape"
-            {
-                float3 extent = (0.2, 0.2, 0.2)
-                float radius = 0.1
-                token shapeType = "Sphere"
-
-                def RealityKitStruct "pose"
-                {
-                }
-            }
-        }
-
-        def RealityKitComponent "InputTarget"
-        {
-            uniform token info:id = "RealityKit.InputTarget"
-        }
-    }
-
-    def Sphere "Bubble_4" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/BubbleMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        float2 ui:nodegraph:node:pos = (42.0327, 713.27795)
-        int ui:nodegraph:node:stackingOrder = 3
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (-0.35053134, 0.25, -0.21971187)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def RealityKitComponent "Collider"
-        {
-            uint group = 1
-            uniform token info:id = "RealityKit.Collider"
-            uint mask = 4294967295
-            token type = "Default"
-
-            def RealityKitStruct "Shape"
-            {
-                float3 extent = (0.2, 0.2, 0.2)
-                float radius = 0.1
-                token shapeType = "Sphere"
-
-                def RealityKitStruct "pose"
-                {
-                }
-            }
-        }
-
-        def RealityKitComponent "InputTarget"
-        {
-            uniform token info:id = "RealityKit.InputTarget"
-        }
-    }
-
-    def Sphere "Bubble_5" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/BubbleMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        float2 ui:nodegraph:node:pos = (62.0327, 733.27795)
-        int ui:nodegraph:node:stackingOrder = 4
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (-0.12255898, 0.25, -0.21971187)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def RealityKitComponent "Collider"
-        {
-            uint group = 1
-            uniform token info:id = "RealityKit.Collider"
-            uint mask = 4294967295
-            token type = "Default"
-
-            def RealityKitStruct "Shape"
-            {
-                float3 extent = (0.2, 0.2, 0.2)
-                float radius = 0.1
-                token shapeType = "Sphere"
-
-                def RealityKitStruct "pose"
-                {
-                }
-            }
-        }
-
-        def RealityKitComponent "InputTarget"
-        {
-            uniform token info:id = "RealityKit.InputTarget"
-        }
-    }
-
-    def Sphere "Bubble_6" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/BubbleMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        float2 ui:nodegraph:node:pos = (82.0327, 753.27795)
-        int ui:nodegraph:node:stackingOrder = 5
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.13122702, 0.25, -0.21971187)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def RealityKitComponent "Collider"
-        {
-            uint group = 1
-            uniform token info:id = "RealityKit.Collider"
-            uint mask = 4294967295
-            token type = "Default"
-
-            def RealityKitStruct "Shape"
-            {
-                float3 extent = (0.2, 0.2, 0.2)
-                float radius = 0.1
-                token shapeType = "Sphere"
-
-                def RealityKitStruct "pose"
-                {
-                }
-            }
-        }
-
-        def RealityKitComponent "InputTarget"
-        {
-            uniform token info:id = "RealityKit.InputTarget"
-        }
-    }
-
-    def Sphere "Bubble_7" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/BubbleMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        float2 ui:nodegraph:node:pos = (102.0327, 773.27795)
-        int ui:nodegraph:node:stackingOrder = 6
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.4001581, 0.25, -0.21971187)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def RealityKitComponent "Collider"
-        {
-            uint group = 1
-            uniform token info:id = "RealityKit.Collider"
-            uint mask = 4294967295
-            token type = "Default"
-
-            def RealityKitStruct "Shape"
-            {
-                float3 extent = (0.2, 0.2, 0.2)
-                float radius = 0.1
-                token shapeType = "Sphere"
-
-                def RealityKitStruct "pose"
-                {
-                }
-            }
-        }
-
-        def RealityKitComponent "InputTarget"
-        {
-            uniform token info:id = "RealityKit.InputTarget"
         }
     }
 }
